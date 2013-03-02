@@ -11,7 +11,7 @@ module AnythingSymbolSpec
       (33..127).each do |digit|
         parse(digit.chr) do |result|
           result.should_not be_nil
-          result.should be_an_instance_of(Foo)
+          result.should be_a_kind_of(Foo)
           result.should respond_to(:a_method)
           result.interval.should == (0...1)
         end
@@ -33,7 +33,7 @@ module AnythingSymbolSpec
       (33..127).each do |digit|
         parse(digit.chr) do |result|
           result.should_not be_nil
-          result.should be_an_instance_of(Treetop::Runtime::SyntaxNode)
+          result.should be_a_kind_of(Treetop::Runtime::SyntaxNode)
           result.should be_a_kind_of(ModFoo)
           result.should respond_to(:a_method)
           result.interval.should == (0...1)

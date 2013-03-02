@@ -10,13 +10,13 @@ module CharacterClassSpec
 
     it "matches single characters within that range, returning instances of the declared node class that respond to the method defined in the inline module" do
       result = parse('A')
-      result.should be_an_instance_of(Foo)
+      result.should be_a_kind_of(Foo)
       result.should respond_to(:a_method)
       result = parse('N')
-      result.should be_an_instance_of(Foo)
+      result.should be_a_kind_of(Foo)
       result.should respond_to(:a_method)
       result = parse('Z')
-      result.should be_an_instance_of(Foo)
+      result.should be_a_kind_of(Foo)
       result.should respond_to(:a_method)
     end
 
@@ -43,15 +43,15 @@ module CharacterClassSpec
 
     it "matches single characters within that range, returning instances of SyntaxNode extended by the specified module" do
       result = parse('A')
-      result.should be_an_instance_of(Treetop::Runtime::SyntaxNode)
+      result.should be_a_kind_of(Treetop::Runtime::SyntaxNode)
       result.should be_a_kind_of(ModFoo)
       result.should respond_to(:a_method)
       result = parse('N')
-      result.should be_an_instance_of(Treetop::Runtime::SyntaxNode)
+      result.should be_a_kind_of(Treetop::Runtime::SyntaxNode)
       result.should be_a_kind_of(ModFoo)
       result.should respond_to(:a_method)
       result = parse('Z')
-      result.should be_an_instance_of(Treetop::Runtime::SyntaxNode)
+      result.should be_a_kind_of(Treetop::Runtime::SyntaxNode)
       result.should be_a_kind_of(ModFoo)
       result.should respond_to(:a_method)
     end

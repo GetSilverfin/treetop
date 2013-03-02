@@ -10,7 +10,7 @@ module SequenceSpec
     it "upon successfully matching input, instantiates an instance of the declared node class with element accessor methods and the method from the inline module" do
       parse('foobarbaz') do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
         result.foo.text_value.should == 'foo'
         result.bar.text_value.should == 'bar'
@@ -50,7 +50,7 @@ module SequenceSpec
       parse('foobarbaz') do |result|
         result.should_not be_nil
         result.should respond_to(:mod_method)
-        result.should be_an_instance_of(Treetop::Runtime::SyntaxNode)
+        result.should be_a_kind_of(Treetop::Runtime::SyntaxNode)
         result.should be_a_kind_of(ModFoo)
         result.should respond_to(:a_method)
         result.foo.text_value.should == 'foo'

@@ -10,7 +10,7 @@ module ZeroOrMoreSpec
     it "successfully parses epsilon, returning an instance declared node class and recording a terminal failure" do
       parse('') do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
@@ -24,7 +24,7 @@ module ZeroOrMoreSpec
     it "successfully parses two of that terminal in a row, returning an instance of the declared node class and recording a failure representing the third attempt " do
       parse("foofoo") do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
 
         terminal_failures = parser.terminal_failures
         terminal_failures.size.should == 1

@@ -10,7 +10,7 @@ module OccurrenceRangeSpec
     it "successfully parses epsilon, reporting a failure" do
       parse('') do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
@@ -24,7 +24,7 @@ module OccurrenceRangeSpec
     it "successfully parses epsilon, returning an instance declared node class and recording a terminal failure" do
       parse('') do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
@@ -38,7 +38,7 @@ module OccurrenceRangeSpec
     it "successfully parses one of that terminal, returning an instance of the declared node class and recording a terminal failure" do
       parse("foo") do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
@@ -52,7 +52,7 @@ module OccurrenceRangeSpec
     it "successfully parses two of that terminal, returning an instance of the declared node class and reporting no failure" do
       parse("foofoo") do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
@@ -99,7 +99,7 @@ module OccurrenceRangeSpec
     it "successfully parses two of that terminal, returning an instance of the declared node class and reporting no failure" do
       parse("foofoo") do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
@@ -113,7 +113,7 @@ module OccurrenceRangeSpec
     it "successfully parses four of that terminal, returning an instance of the declared node class and reporting no failure" do
       parse("foofoofoofoo") do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
@@ -160,7 +160,7 @@ module OccurrenceRangeSpec
     it "successfully parses two of that terminal, returning an instance of the declared node class and reporting no failure" do
       parse("foofoo") do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
@@ -174,7 +174,7 @@ module OccurrenceRangeSpec
     it "successfully parses four of that terminal, returning an instance of the declared node class and reporting a failure on the fifth" do
       parse("foofoofoofoo") do |result|
         result.should_not be_nil
-        result.should be_an_instance_of(Foo)
+        result.should be_a_kind_of(Foo)
         result.should respond_to(:a_method)
 
         terminal_failures = parser.terminal_failures
