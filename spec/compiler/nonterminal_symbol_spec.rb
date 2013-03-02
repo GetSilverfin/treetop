@@ -6,13 +6,13 @@ module NonterminalSymbolSpec
   
     parser_class_under_test.class_eval do
       def _nt_foo
-        '_nt_foo called'
+        Runtime::SyntaxNode.new '_nt_foo called', 0...15
       end
     end
   
     it "compiles to a method call, extending its results with the anonymous module for the block" do
       result = parse('')
-      result.should == '_nt_foo called'
+      result.text_value.should == '_nt_foo called'
       result.should respond_to(:a_method)
     end
   end
@@ -27,13 +27,13 @@ module NonterminalSymbolSpec
   
     parser_class_under_test.class_eval do
       def _nt_foo
-        '_nt_foo called'
+        Runtime::SyntaxNode.new '_nt_foo called', 0...15
       end
     end
   
     it "compiles to a method call, extending its results with the anonymous module for the block" do
       result = parse('')
-      result.should == '_nt_foo called'
+      result.text_value.should == '_nt_foo called'
       result.should respond_to(:a_method)
     end
   end

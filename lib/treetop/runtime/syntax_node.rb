@@ -1,4 +1,8 @@
 module Treetop
+  def self.class_cache
+    @class_cache ||= Hash.new { |h0,cls| h0[cls] = Hash.new { |h1,mod| h1[mod] = Class.new(cls) { include mod } } }
+  end
+
   module Runtime
     class SyntaxNode
       attr_reader :input, :interval
@@ -108,6 +112,17 @@ module Treetop
           write_dot(file)
           file.puts "}"
         end
+      end
+
+      if respond_to?(:initialize_copy,true)
+        def cast_or_extend(mod)
+          instance_variables.inject(Treetop.class_cache[self.class][mod].allocate) { |result,var|
+            result.instance_variable_set(var,instance_variable_get(var))
+            result
+          }
+        end
+      else
+        alias cast_or_extend extend
       end
     end
   end
