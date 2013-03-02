@@ -28,9 +28,8 @@ module Treetop
         parent_expression.inline_module_name
       end
 
-      def assign_and_extend_result
+      def instantiate_and_assign_result
         assign_result "instantiate_node(#{node_class_name},input, #{start_index_var}...index, #{accumulator_var})"
-        extend_result_with_inline_module
       end
     end
 
@@ -38,7 +37,7 @@ module Treetop
     class ZeroOrMore < Repetition
       def compile(address, builder, parent_expression)
         super
-        assign_and_extend_result
+        instantiate_and_assign_result
         end_comment(parent_expression)
       end
 
@@ -55,7 +54,7 @@ module Treetop
           assign_failure start_index_var
         end
         builder.else_ do
-          assign_and_extend_result
+          instantiate_and_assign_result
         end
         end_comment(parent_expression)
       end
@@ -70,7 +69,7 @@ module Treetop
         super
 
         if min.empty? || min.text_value.to_i == 0
-          assign_and_extend_result
+          instantiate_and_assign_result
         else
           # We got some, but fewer than we wanted. There'll be a failure reported already
           builder.if__ "#{accumulator_var}.size < #{min.text_value}" do
@@ -78,7 +77,7 @@ module Treetop
             assign_failure start_index_var
           end
           builder.else_ do
-            assign_and_extend_result
+            instantiate_and_assign_result
           end
         end
         end_comment(parent_expression)

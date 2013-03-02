@@ -9,6 +9,7 @@ module Treetop
           builder << "include Treetop::Runtime"
           builder.newline
           declaration_sequence.compile(builder)
+          builder.emit_composite_classes
         end
         builder.newline
         builder.class_declaration "#{parser_name} < Treetop::Runtime::CompiledParser" do

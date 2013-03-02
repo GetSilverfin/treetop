@@ -27,8 +27,8 @@ module Treetop
         self.out(depth)
       end
             
-      def class_declaration(name, &block)
-        self << "class #{name}"
+      def class_declaration(name,parent=nil,&block)
+        self << "class #{name}#{parent && " < #{parent}"}"
         indented(&block)
         self << "end"
       end
@@ -56,7 +56,7 @@ module Treetop
       def extend(var, module_name)
         self << "#{var} = #{var}.cast_or_extend(#{module_name})"
       end
-      
+
       def accumulate(left, right)
         self << "#{left} << #{right}"
       end
@@ -105,6 +105,45 @@ module Treetop
         address_space.reset_addresses
       end
       
+      def composite_classes_needed
+        @composite_classes_needed ||= {}
+      end
+      
+      def classes_defined
+        @classes_defined ||= []
+      end
+      
+      def composite_class(base,*mixins)
+        formula = [base || 'SyntaxNode', *mixins].compact.uniq
+        composite_classes_needed[formula] ||= formula.map { |s| s.gsub(/([^a-z0-9_:]+)/i,'') } * "_"
+      end
+
+      def emit_composite_classes
+        composite_classes_needed.each { |formula,name|
+          if formula.length > 1
+            base = formula.shift
+            we_know_the_base_is_a_class = base == "SyntaxNode" || classes_defined.include?(base)
+            if we_know_the_base_is_a_class
+              class_declaration(name,base) {
+                formula.each { |mod| self << "include #{mod}" }
+              }
+            else
+              if__ "#{base}.is_a?(Class)" do
+                class_declaration(name,base) {
+                  formula.each { |mod| self << "include #{mod}" }
+                }
+              end
+              else_ do
+                class_declaration(name,"SyntaxNode") {
+                  self << "include #{base}" unless base == "SyntaxNode"
+                  formula.each { |mod| self << "include #{mod}" }
+                }
+              end
+            end
+          end
+        }
+      end
+
       private
       
       def indent

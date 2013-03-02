@@ -7,7 +7,6 @@ module Treetop
         builder.if__ "has_terminal?(#{grounded_regexp(text_value)}, true, index)" do
           if address == 0 || decorated?
             assign_result "instantiate_node(#{node_class_name},input, index...(index + 1))"
-            extend_result_with_inline_module
           else
             assign_lazily_instantiated_node
           end

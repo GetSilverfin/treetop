@@ -127,3 +127,9 @@ module Treetop
     end
   end
 end
+
+class NilClass
+  def cast_or_extend(*args)
+    self
+  end
+end
