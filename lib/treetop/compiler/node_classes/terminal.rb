@@ -7,7 +7,6 @@ module Treetop
         
         builder.if__ "has_terminal?(#{text_value}, false, index)" do
           assign_result "instantiate_node(#{node_class_name},input, index...(index + #{string_length}))"
-          extend_result_with_inline_module
           builder << "@index += #{string_length}"
         end
         builder.else_ do

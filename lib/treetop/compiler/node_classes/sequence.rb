@@ -8,8 +8,6 @@ module Treetop
         compile_sequence_elements(sequence_elements)
         builder.if__ "#{accumulator_var}.last" do
           assign_result "instantiate_node(#{node_class_name},input, #{start_index_var}...index, #{accumulator_var})"
-          extend_result sequence_element_accessor_module_name if sequence_element_accessor_module_name
-          extend_result_with_inline_module
         end
         builder.else_ do
           reset_index
@@ -19,7 +17,7 @@ module Treetop
       end
       
       def node_class_name
-        node_class_declarations.node_class_name || 'SyntaxNode'
+        builder.composite_class(node_class_declarations.node_class_name, sequence_element_accessor_module_name, inline_module_name)
       end
       
       def compile_sequence_elements(elements)

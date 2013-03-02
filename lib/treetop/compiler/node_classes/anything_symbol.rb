@@ -5,7 +5,6 @@ module Treetop
         super
         builder.if__ "index < input_length" do
           assign_result "instantiate_node(#{node_class_name},input, index...(index + 1))"
-          extend_result_with_inline_module
           builder << "@index += 1"
         end
         builder.else_ do

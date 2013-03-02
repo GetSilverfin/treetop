@@ -2,7 +2,7 @@ module Treetop
   module Compiler
     class ParsingExpression < Runtime::SyntaxNode
       attr_reader :address, :builder, :subexpression_address, :var_symbols, :parent_expression
-    
+      
       def compile(address, builder, parent_expression)
         @address = address
         @builder = builder
@@ -10,7 +10,7 @@ module Treetop
       end
       
       def node_class_name
-        parent_expression && parent_expression.node_class_name || 'SyntaxNode'
+        builder.composite_class(parent_expression && parent_expression.node_class_name, declared_module_name, inline_module_name)
       end
       
       def declared_module_name
@@ -65,7 +65,7 @@ module Treetop
       def accumulate_subexpression_result
         builder.accumulate accumulator_var, subexpression_result_var
       end
-    
+      
       def assign_result(value_ruby)
         builder.assign result_var, value_ruby
       end
@@ -73,7 +73,7 @@ module Treetop
       def extend_result(module_name)
         builder.extend result_var, module_name
       end
-
+      
       def extend_result_with_declared_module
         extend_result declared_module_name if declared_module_name
       end
@@ -81,7 +81,7 @@ module Treetop
       def extend_result_with_inline_module
         extend_result inline_module_name if inline_module_name
       end
-    
+      
       def reset_index
         builder.assign '@index', start_index_var
       end
