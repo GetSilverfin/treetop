@@ -85,7 +85,11 @@ module Treetop
       end
 
       def instantiate_node(node_type,*args)
-        (node_type.respond_to?(:new) ? node_type : Treetop.class_cache[SyntaxNode][node_type]).new(*args)
+        if node_type.respond_to? :new
+          node_type.new(*args)
+        else
+          SyntaxNode.new(*args).extend(node_type)
+        end
       end
 
       def has_terminal?(terminal, regex, index)
