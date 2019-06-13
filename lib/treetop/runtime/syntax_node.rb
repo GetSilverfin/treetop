@@ -41,7 +41,7 @@ module Treetop
       def empty?
         interval.first == interval.last && interval.exclude_end?
       end
-      
+
       def <=>(other)
         self.interval.first <=> other.interval.first
       end
@@ -110,11 +110,5 @@ module Treetop
         end
       end
     end
-  end
-end
-
-class NilClass
-  def cast_or_extend(*args)
-    self
   end
 end
